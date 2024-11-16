@@ -107,17 +107,19 @@ const MatchDashboard = () => {
         </CardHeader>
 
         <CardContent>
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center space-x-4">
-              <Image
-                src={match.homeTeam.logo}
-                alt={match.homeTeam.name}
-                width={48}
-                height={48}
-                className="w-12 h-12"
-              />
-              <div className="flex flex-col">
-                <span className="font-semibold">{match.homeTeam.name}</span>
+          <div className="flex justify-between items-start mb-6">
+            <div className="flex flex-col items-start flex-1">
+              <span className="font-semibold text-lg">
+                {match.homeTeam.name}
+              </span>
+              <div className="flex items-center justify-between w-full mt-2">
+                <Image
+                  src={match.homeTeam.logo}
+                  alt={match.homeTeam.name}
+                  width={48}
+                  height={48}
+                  className="w-12 h-12"
+                />
                 <div className="text-sm text-gray-600">
                   {match.homeTeam.scorers.map((scorer, idx) => (
                     <div key={idx}>{scorer}</div>
@@ -125,25 +127,29 @@ const MatchDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="text-4xl font-bold">
+            <div className="text-4xl font-bold whitespace-nowrap mx-4">
               {match.homeTeam.score} - {match.awayTeam.score}
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex flex-col items-end">
-                <span className="font-semibold">{match.awayTeam.name}</span>
+            <div className="flex flex-col items-end flex-1">
+              <span className="font-semibold text-lg">
+                {match.awayTeam.name}
+              </span>
+              <div className="flex items-center justify-between w-full mt-2">
                 <div className="text-sm text-gray-600 text-right">
                   {match.awayTeam.scorers.map((scorer, idx) => (
                     <div key={idx}>{scorer}</div>
                   ))}
                 </div>
+                <div className="flex items-center">
+                  <Image
+                    src={match.awayTeam.logo}
+                    alt={match.awayTeam.name}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12"
+                  />
+                </div>
               </div>
-              <Image
-                src={match.awayTeam.logo}
-                alt={match.awayTeam.name}
-                width={48}
-                height={48}
-                className="w-12 h-12"
-              />
             </div>
           </div>
 
