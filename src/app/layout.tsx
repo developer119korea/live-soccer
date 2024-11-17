@@ -38,14 +38,11 @@ export default function RootLayout({
               <Link href="/matches" className="text-gray-300 hover:text-white">
                 홈
               </Link>
+              <Link href="/matches" className="text-gray-300 hover:text-white">
+                경기 일정
+              </Link>
               <Link href="/boards" className="text-gray-300 hover:text-white">
                 커뮤니티
-              </Link>
-              <Link
-                href="/premium-analysis"
-                className="text-gray-300 hover:text-white"
-              >
-                프리미엄 분석
               </Link>
               <Link href="/support" className="text-gray-300 hover:text-white">
                 고객센터

@@ -119,7 +119,7 @@ const Matches = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 p-4">
+    <div className="max-w-4xl mx-auto space-y-8">
       <h1 className="text-2xl font-bold mb-4">경기 목록</h1>
       <ul className="space-y-4">
         {matches.map((match) => (

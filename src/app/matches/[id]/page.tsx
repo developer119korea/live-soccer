@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState, ReactNode } from "react";
-import Image from "next/image"; // next/image에서 Image 컴포넌트 가져오기
+import React, { useState, ReactNode, useEffect } from "react";
+import Image from "next/image";
 import { Card, CardHeader, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Progress } from "@/components/ui/Progress";
 import { Clock, MapPin, Users, Trophy, Timer } from "lucide-react";
+import ReactPlayer from "react-player";
 
 const MatchDashboard = () => {
   const [activeTab, setActiveTab] = useState("statistics");
+  const [isClient, setIsClient] = useState(false);
 
   const match = {
     homeTeam: {
@@ -93,15 +95,24 @@ const MatchDashboard = () => {
     </div>
   );
 
-  const SectionTitle: React.FC<{ children: ReactNode }> = ({ children }) => (
-    <h2 className="text-xl font-semibold my-6 pb-2 border-b border-gray-200">
-      {children}
-    </h2>
-  );
+  useEffect(() => {
+    setIsClient(true); // 클라이언트 사이드에서만 실행
+  }, []);
+
+  if (!isClient) return null;
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <h1 className="text-2xl font-bold mb-4">경기 상세</h1>
+      <div className="aspect-w-16 aspect-h-9">
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=lcod56QPJVI"
+          controls
+          playing
+          width="100%"
+          height="100%"
+        />
+      </div>
       <Card className="bg-white shadow-lg">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-center">

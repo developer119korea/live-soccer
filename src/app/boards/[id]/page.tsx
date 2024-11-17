@@ -126,7 +126,7 @@ export default function Post() {
     return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newCommentData = {
       postId: Number(id),
@@ -140,7 +140,7 @@ export default function Post() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto">
       <button
         onClick={() => router.back()}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center"
