@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -28,7 +29,34 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <nav className="bg-gray-800 p-4">
+          <div className="container mx-auto flex justify-between items-center">
+            <div className="text-white text-lg font-bold">
+              <Link href="/matches">Live Soccer</Link>
+            </div>
+            <div className="space-x-3">
+              <Link href="/matches" className="text-gray-300 hover:text-white">
+                홈
+              </Link>
+              <Link
+                href="/community"
+                className="text-gray-300 hover:text-white"
+              >
+                커뮤니티
+              </Link>
+              <Link
+                href="/premium-analysis"
+                className="text-gray-300 hover:text-white"
+              >
+                프리미엄 분석
+              </Link>
+              <Link href="/support" className="text-gray-300 hover:text-white">
+                고객센터
+              </Link>
+            </div>
+          </div>
+        </nav>
+        <main className="container mx-auto p-4">{children}</main>
       </body>
     </html>
   );
