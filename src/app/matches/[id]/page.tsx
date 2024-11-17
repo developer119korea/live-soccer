@@ -1,4 +1,6 @@
-import React, { ReactNode } from "react";
+"use client";
+
+import React, { useState, ReactNode } from "react";
 import Image from "next/image"; // next/image에서 Image 컴포넌트 가져오기
 import { Card, CardHeader, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -6,6 +8,8 @@ import { Progress } from "@/components/ui/Progress";
 import { Clock, MapPin, Users, Trophy, Timer } from "lucide-react";
 
 const MatchDashboard = () => {
+  const [activeTab, setActiveTab] = useState("statistics");
+
   const match = {
     homeTeam: {
       name: "맨체스터 시티",
@@ -96,7 +100,7 @@ const MatchDashboard = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 p-4">
+    <div className="max-w-4xl mx-auto space-y-8">
       <h1 className="text-2xl font-bold mb-4">경기 상세</h1>
       <Card className="bg-white shadow-lg">
         <CardHeader className="pb-2">
@@ -176,179 +180,211 @@ const MatchDashboard = () => {
       </Card>
 
       <Card>
-        <CardContent>
-          <SectionTitle>경기 통계</SectionTitle>
-
-          <div className="space-y-6">
-            <div className="stat-item">
-              <div className="flex justify-between mb-2">
-                <span>{match.homeTeam.possession}%</span>
-                <span className="font-medium">점유율</span>
-                <span>{match.awayTeam.possession}%</span>
-              </div>
-              <Progress value={match.homeTeam.possession} className="h-2" />
-            </div>
-
-            <div className="stat-item">
-              <div className="flex justify-between mb-2">
-                <span>{match.homeTeam.shots}</span>
-                <span className="font-medium">슈팅</span>
-                <span>{match.awayTeam.shots}</span>
-              </div>
-              <Progress
-                value={
-                  (match.homeTeam.shots /
-                    (match.homeTeam.shots + match.awayTeam.shots)) *
-                  100
-                }
-                className="h-2"
-              />
-            </div>
-
-            <div className="stat-item">
-              <div className="flex justify-between mb-2">
-                <span>{match.homeTeam.shotsOnTarget}</span>
-                <span className="font-medium">유효슈팅</span>
-                <span>{match.awayTeam.shotsOnTarget}</span>
-              </div>
-              <Progress
-                value={
-                  (match.homeTeam.shotsOnTarget /
-                    (match.homeTeam.shotsOnTarget +
-                      match.awayTeam.shotsOnTarget)) *
-                  100
-                }
-                className="h-2"
-              />
-            </div>
-
-            <div className="stat-item">
-              <div className="flex justify-between mb-2">
-                <span>{match.homeTeam.corners}</span>
-                <span className="font-medium">코너킥</span>
-                <span>{match.awayTeam.corners}</span>
-              </div>
-              <Progress
-                value={
-                  (match.homeTeam.corners /
-                    (match.homeTeam.corners + match.awayTeam.corners)) *
-                  100
-                }
-                className="h-2"
-              />
-            </div>
-
-            <div className="stat-item">
-              <div className="flex justify-between mb-2">
-                <span>{match.homeTeam.fouls}</span>
-                <span className="font-medium">파울</span>
-                <span>{match.awayTeam.fouls}</span>
-              </div>
-              <Progress
-                value={
-                  (match.homeTeam.fouls /
-                    (match.homeTeam.fouls + match.awayTeam.fouls)) *
-                  100
-                }
-                className="h-2"
-              />
-            </div>
+        <CardHeader>
+          <div className="flex space-x-4">
+            <button
+              className={`px-4 py-2 ${
+                activeTab === "statistics"
+                  ? "border-b-2 border-blue-500 text-blue-500"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("statistics")}
+            >
+              경기 통계
+            </button>
+            <button
+              className={`px-4 py-2 ${
+                activeTab === "lineup"
+                  ? "border-b-2 border-blue-500 text-blue-500"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("lineup")}
+            >
+              라인업
+            </button>
+            <button
+              className={`px-4 py-2 ${
+                activeTab === "highlights"
+                  ? "border-b-2 border-blue-500 text-blue-500"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("highlights")}
+            >
+              하이라이트
+            </button>
           </div>
-        </CardContent>
-      </Card>
-
-      <Card>
+        </CardHeader>
         <CardContent>
-          <SectionTitle>라인업</SectionTitle>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <div className="mb-4">
-                <h3 className="font-semibold text-lg">{match.homeTeam.name}</h3>
-                <p className="text-sm text-gray-600">
-                  Formation: {match.lineup.home.formation}
-                </p>
+          {activeTab === "statistics" && (
+            <div className="space-y-6">
+              <div className="stat-item">
+                <div className="flex justify-between mb-2">
+                  <span>{match.homeTeam.possession}%</span>
+                  <span className="font-medium">점유율</span>
+                  <span>{match.awayTeam.possession}%</span>
+                </div>
+                <Progress value={match.homeTeam.possession} className="h-2" />
               </div>
-              <div className="space-y-2">
-                {match.lineup.home.players.map((player) => (
-                  <div
-                    key={player.number}
-                    className="flex items-center space-x-3"
-                  >
-                    <span className="w-8 text-center font-mono bg-gray-100 rounded">
-                      {player.number}
-                    </span>
-                    <span className="flex-grow">{player.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {player.position}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
 
-            <div>
-              <div className="mb-4">
-                <h3 className="font-semibold text-lg">{match.awayTeam.name}</h3>
-                <p className="text-sm text-gray-600">
-                  Formation: {match.lineup.away.formation}
-                </p>
-              </div>
-              <div className="space-y-2">
-                {match.lineup.away.players.map((player) => (
-                  <div
-                    key={player.number}
-                    className="flex items-center space-x-3"
-                  >
-                    <span className="w-8 text-center font-mono bg-gray-100 rounded">
-                      {player.number}
-                    </span>
-                    <span className="flex-grow">{player.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {player.position}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent>
-          <SectionTitle>하이라이트</SectionTitle>
-
-          <div className="space-y-4">
-            {match.highlights.map((highlight, idx) => (
-              <div
-                key={idx}
-                className="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                <span className="font-mono text-sm min-w-[48px]">
-                  {highlight.time}
-                </span>
-                <Badge
-                  variant={
-                    highlight.event === "득점"
-                      ? "default"
-                      : highlight.event === "교체"
-                      ? "secondary"
-                      : "outline"
+              <div className="stat-item">
+                <div className="flex justify-between mb-2">
+                  <span>{match.homeTeam.shots}</span>
+                  <span className="font-medium">슈팅</span>
+                  <span>{match.awayTeam.shots}</span>
+                </div>
+                <Progress
+                  value={
+                    (match.homeTeam.shots /
+                      (match.homeTeam.shots + match.awayTeam.shots)) *
+                    100
                   }
-                  className="min-w-[60px] justify-center"
-                >
-                  {highlight.event}
-                </Badge>
+                  className="h-2"
+                />
+              </div>
+
+              <div className="stat-item">
+                <div className="flex justify-between mb-2">
+                  <span>{match.homeTeam.shotsOnTarget}</span>
+                  <span className="font-medium">유효슈팅</span>
+                  <span>{match.awayTeam.shotsOnTarget}</span>
+                </div>
+                <Progress
+                  value={
+                    (match.homeTeam.shotsOnTarget /
+                      (match.homeTeam.shotsOnTarget +
+                        match.awayTeam.shotsOnTarget)) *
+                    100
+                  }
+                  className="h-2"
+                />
+              </div>
+
+              <div className="stat-item">
+                <div className="flex justify-between mb-2">
+                  <span>{match.homeTeam.corners}</span>
+                  <span className="font-medium">코너킥</span>
+                  <span>{match.awayTeam.corners}</span>
+                </div>
+                <Progress
+                  value={
+                    (match.homeTeam.corners /
+                      (match.homeTeam.corners + match.awayTeam.corners)) *
+                    100
+                  }
+                  className="h-2"
+                />
+              </div>
+
+              <div className="stat-item">
+                <div className="flex justify-between mb-2">
+                  <span>{match.homeTeam.fouls}</span>
+                  <span className="font-medium">파울</span>
+                  <span>{match.awayTeam.fouls}</span>
+                </div>
+                <Progress
+                  value={
+                    (match.homeTeam.fouls /
+                      (match.homeTeam.fouls + match.awayTeam.fouls)) *
+                    100
+                  }
+                  className="h-2"
+                />
+              </div>
+            </div>
+          )}
+          {activeTab === "lineup" && (
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <span className="font-medium">{highlight.player}</span>
-                  <span className="text-sm text-gray-600 ml-2">
-                    ({highlight.team})
-                  </span>
+                  <div className="mb-4">
+                    <h3 className="font-semibold text-lg">
+                      {match.homeTeam.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Formation: {match.lineup.home.formation}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    {match.lineup.home.players.map((player) => (
+                      <div
+                        key={player.number}
+                        className="flex items-center space-x-3"
+                      >
+                        <span className="w-8 text-center font-mono bg-gray-100 rounded">
+                          {player.number}
+                        </span>
+                        <span className="flex-grow">{player.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {player.position}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mb-4">
+                    <h3 className="font-semibold text-lg">
+                      {match.awayTeam.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Formation: {match.lineup.away.formation}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    {match.lineup.away.players.map((player) => (
+                      <div
+                        key={player.number}
+                        className="flex items-center space-x-3"
+                      >
+                        <span className="w-8 text-center font-mono bg-gray-100 rounded">
+                          {player.number}
+                        </span>
+                        <span className="flex-grow">{player.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {player.position}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+          {activeTab === "highlights" && (
+            <div className="space-y-6">
+              <div className="space-y-4">
+                {match.highlights.map((highlight, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+                  >
+                    <span className="font-mono text-sm min-w-[48px]">
+                      {highlight.time}
+                    </span>
+                    <Badge
+                      variant={
+                        highlight.event === "득점"
+                          ? "default"
+                          : highlight.event === "교체"
+                          ? "secondary"
+                          : "outline"
+                      }
+                      className="min-w-[60px] justify-center"
+                    >
+                      {highlight.event}
+                    </Badge>
+                    <div>
+                      <span className="font-medium">{highlight.player}</span>
+                      <span className="text-sm text-gray-600 ml-2">
+                        ({highlight.team})
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
