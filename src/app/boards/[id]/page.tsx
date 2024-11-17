@@ -1,8 +1,7 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
 
 const posts = [
   {
@@ -113,7 +112,6 @@ const initialComments = [
 
 export default function Post() {
   const params = useParams();
-  const router = useRouter();
   const { id } = params;
   const post = posts.find((post) => post.id === Number(id));
   const [comments, setComments] = useState(
@@ -141,12 +139,6 @@ export default function Post() {
 
   return (
     <div className="container mx-auto">
-      <button
-        onClick={() => router.back()}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center"
-      >
-        <FaArrowLeft />
-      </button>
       <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600 mb-4">작성자: {post.author}</p>
       <p className="text-gray-600 mb-4">작성일: {post.date}</p>

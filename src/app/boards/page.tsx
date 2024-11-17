@@ -103,7 +103,7 @@ const posts = [
 export default function Board() {
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">게시판 목록</h1>
+      <h1 className="text-2xl font-bold mb-4">커뮤니티</h1>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <Link key={post.id} href={`/boards/${post.id}`}>
