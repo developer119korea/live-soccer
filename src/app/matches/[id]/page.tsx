@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, ReactNode, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardHeader, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Progress } from "@/components/ui/Progress";
 import { Clock, MapPin, Users, Trophy, Timer } from "lucide-react";
 import ReactPlayer from "react-player";
+import ChatPopup from "@/components/ChatPopup";
 
 const MatchDashboard = () => {
   const [activeTab, setActiveTab] = useState("statistics");
@@ -398,6 +399,7 @@ const MatchDashboard = () => {
           )}
         </CardContent>
       </Card>
+      <ChatPopup />
     </div>
   );
 };
