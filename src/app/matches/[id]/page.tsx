@@ -97,6 +97,7 @@ const MatchDashboard = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 p-4">
+      <h1 className="text-2xl font-bold mb-4">경기 상세</h1>
       <Card className="bg-white shadow-lg">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-center">
