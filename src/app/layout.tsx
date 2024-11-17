@@ -32,10 +32,10 @@ export default function RootLayout({
         <nav className="bg-gray-800 p-4">
           <div className="container mx-auto flex justify-between items-center">
             <div className="text-white text-lg font-bold">
-              <Link href="/matches">Live Soccer</Link>
+              <Link href="/">Live Soccer</Link>
             </div>
             <div className="space-x-3">
-              <Link href="/matches" className="text-gray-300 hover:text-white">
+              <Link href="/" className="text-gray-300 hover:text-white">
                 홈
               </Link>
               <Link href="/matches" className="text-gray-300 hover:text-white">
